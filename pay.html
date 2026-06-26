@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оформление подписки — Streak</title>
+<style>
+  :root{
+    --bg:#080611;--card:rgba(26,19,46,.6);--bd:rgba(139,92,246,.22);
+    --violet:#8b5cf6;--violet2:#a855f7;--soft:#c4b5fd;--amber:#fb923c;
+    --txt:#ECE9F5;--muted:#9b93b5;--grad:linear-gradient(135deg,#7c3aed,#a855f7);--grad-fire:linear-gradient(135deg,#fb923c,#f59e0b);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column}
+  a{color:inherit;text-decoration:none}
+  .bg-fx{position:fixed;inset:0;z-index:-1;background:
+    radial-gradient(900px 600px at 80% -10%,rgba(124,58,237,.25),transparent 60%),
+    radial-gradient(700px 500px at 0% 110%,rgba(251,146,60,.12),transparent 60%),
+    linear-gradient(180deg,#080611,#0c0918);}
+  header{padding:20px 22px;border-bottom:1px solid var(--bd)}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;max-width:960px;margin:0 auto}
+  .brand .mark{width:32px;height:32px;border-radius:9px;background:var(--grad-fire);display:grid;place-items:center;font-size:18px}
+  .demo{margin-left:auto;font-size:12px;color:var(--soft);background:var(--card);border:1px solid var(--bd);padding:5px 12px;border-radius:999px}
+  .wrap{max-width:960px;margin:0 auto;padding:40px 22px;width:100%;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start;flex:1}
+  @media(max-width:780px){.wrap{grid-template-columns:1fr}}
+  h1{font-size:26px;margin-bottom:6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .panel{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:26px;backdrop-filter:blur(8px)}
+  label{display:block;font-size:13px;color:var(--soft);margin:14px 0 6px;font-weight:600}
+  input{width:100%;padding:13px 14px;border-radius:11px;background:rgba(255,255,255,.03);border:1px solid var(--bd);color:var(--txt);font-size:15px;outline:none}
+  input:focus{border-color:var(--violet)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .pay-btn{margin-top:22px;width:100%;padding:15px;border:none;border-radius:13px;background:var(--grad);color:#fff;font-weight:700;font-size:16px;cursor:pointer;transition:transform .15s,box-shadow .25s;box-shadow:0 8px 24px rgba(139,92,246,.4)}
+  .pay-btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(168,85,247,.55)}
+  .secure{margin-top:14px;text-align:center;color:var(--muted);font-size:12px}
+  /* summary */
+  .sum h3{font-size:15px;color:var(--soft);margin-bottom:16px}
+  .plan-name{font-size:22px;font-weight:800}
+  .plan-price{font-size:34px;font-weight:800;margin:6px 0 2px}
+  .plan-price span{font-size:14px;color:var(--muted);font-weight:500}
+  .sum ul{list-style:none;margin:18px 0;display:flex;flex-direction:column;gap:10px}
+  .sum li{font-size:14px;color:var(--muted);display:flex;gap:9px}
+  .sum li .ck{color:var(--violet2)}
+  .line{height:1px;background:var(--bd);margin:18px 0}
+  .total{display:flex;justify-content:space-between;font-weight:800;font-size:18px}
+  /* success */
+  .done{display:none;text-align:center;padding:50px 26px}
+  .done .ic{width:84px;height:84px;border-radius:50%;background:var(--grad-fire);display:grid;place-items:center;font-size:42px;margin:0 auto 20px;box-shadow:0 12px 40px rgba(245,158,11,.4)}
+  .done h2{font-size:26px;margin-bottom:8px}
+  .done p{color:var(--muted);margin-bottom:24px}
+  .done a{display:inline-block;padding:13px 24px;border-radius:12px;background:var(--card);border:1px solid var(--bd);font-weight:700}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:20px;border-top:1px solid var(--bd)}
+  footer a{color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="bg-fx"></div>
+
+<header>
+  <div class="brand"><span class="mark">🔥</span>Streak<span class="demo">демо-страница</span></div>
+</header>
+
+<div class="wrap" id="checkout">
+  <div class="panel">
+    <h1>Оформление подписки</h1>
+    <p class="sub">Введите данные карты, чтобы активировать тариф.</p>
+
+    <label>Имя на карте</label>
+    <input type="text" placeholder="IVAN PETROV" autocomplete="off">
+    <label>Номер карты</label>
+    <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" autocomplete="off">
+    <div class="row">
+      <div><label>Срок</label><input type="text" placeholder="ММ/ГГ" maxlength="5" autocomplete="off"></div>
+      <div><label>CVC</label><input type="text" placeholder="•••" maxlength="3" inputmode="numeric" autocomplete="off"></div>
+    </div>
+    <label>Email для чека</label>
+    <input type="email" placeholder="you@email.com" autocomplete="off">
+
+    <button class="pay-btn" onclick="pay(event)">Оплатить <span id="btnsum"></span></button>
+    <div class="secure">🔒 Демонстрационная оплата. Данные не отправляются и не сохраняются.</div>
+  </div>
+
+  <div class="panel sum">
+    <h3>Ваш заказ</h3>
+    <div class="plan-name" id="pname">Streak Pro</div>
+    <div class="plan-price" id="pprice">299 ₽<span>/мес</span></div>
+    <ul id="pfeat"></ul>
+    <div class="line"></div>
+    <div class="total"><span>Итого</span><span id="ptotal">299 ₽</span></div>
+  </div>
+</div>
+
+<div class="wrap" style="display:block">
+  <div class="panel done" id="done">
+    <div class="ic">✓</div>
+    <h2>Оплата прошла успешно 🔥</h2>
+    <p id="donetext">Подписка Streak Pro активирована. Чек отправлен на почту.</p>
+    <a href="index.html">← Вернуться на сайт</a>
+  </div>
+</div>
+
+<footer>
+  Streak — демо-проект · Дизайн и разработка <a href="https://t.me/webdev_vitek" target="_blank" rel="noopener">WebDev Vitek</a>
+</footer>
+
+<script>
+  var plans={
+    free:{name:"Streak Free",price:"0 ₽",per:"/навсегда",total:"0 ₽",feat:["До 3 привычек","Серии и напоминания","Базовая статистика"]},
+    pro:{name:"Streak Pro",price:"299 ₽",per:"/мес",total:"299 ₽",feat:["Безлимит привычек","Расширенная статистика","Умные ИИ-напоминания","Синхронизация на всех устройствах"]},
+    team:{name:"Streak Team",price:"699 ₽",per:"/мес",total:"699 ₽",feat:["Всё из Pro","До 5 участников","Общие цели и челленджи","Приоритетная поддержка"]}
+  };
+  function qp(k){return new URLSearchParams(location.search).get(k)}
+  var key=(qp("plan")||"pro").toLowerCase(); if(!plans[key])key="pro";
+  var p=plans[key];
+  document.getElementById("pname").textContent=p.name;
+  document.getElementById("pprice").innerHTML=p.price+"<span>"+p.per+"</span>";
+  document.getElementById("ptotal").textContent=p.total;
+  document.getElementById("btnsum").textContent="· "+p.total;
+  document.getElementById("pfeat").innerHTML=p.feat.map(function(f){return '<li><span class="ck">✓</span>'+f+'</li>'}).join("");
+  document.getElementById("donetext").textContent="Подписка "+p.name+" активирована. Чек отправлен на почту.";
+  function pay(e){
+    e.preventDefault();
+    document.getElementById("checkout").style.display="none";
+    document.getElementById("done").style.display="block";
+    window.scrollTo(0,0);
+  }
+</script>
+</body>
+</html>
